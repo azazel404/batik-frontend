@@ -149,8 +149,6 @@ const ListDriver = (props) => {
 		);
 	};
 
-	console.log("test", initialValues);
-
 	const columns = [
 		{
 			title: "Image Product",
@@ -158,7 +156,11 @@ const ListDriver = (props) => {
 			key: "image",
 			render: (text, record) => {
 				let result = record.image ? (
-					<Image src={record.image} width={240} style={{ border: "1px solid #d9d9d9" }} />
+					<Image
+						src={`${process.env.REACT_APP_URLFILE}${record.image}`}
+						width={240}
+						style={{ border: "1px solid #d9d9d9" }}
+					/>
 				) : (
 					"No Image"
 				);

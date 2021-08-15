@@ -50,6 +50,8 @@ const ListOrder = (props) => {
 
 	const handleActionSubmit = (values) => {
 		let payload = {
+			start_date: values.start_date,
+			end_date: values.end_date,
 			status: 1,
 			driver_id: values.driver_id,
 		};
@@ -173,7 +175,9 @@ const ListOrder = (props) => {
 			dataIndex: "start_date",
 			key: "start_date",
 			render: (text, record) => (
-				<span>{moment(record.start_date).format("dddd MMMM YYYY ")}</span>
+				<span>
+					{record.start_date && moment(record.start_date).format("dddd MMMM YYYY ")}
+				</span>
 			),
 		},
 		{
@@ -181,7 +185,9 @@ const ListOrder = (props) => {
 			dataIndex: "end_date",
 			key: "end_date",
 			render: (text, record) => (
-				<span>{moment(record.end_date).format("dddd MMMM YYYY ")}</span>
+				<span>
+					{record.end_date && moment(record.end_date).format("dddd MMMM YYYY ")}
+				</span>
 			),
 		},
 		{
@@ -214,8 +220,8 @@ const ListOrder = (props) => {
 
 								status: result && result.label,
 								trans_date: moment(record.trans_date),
-								start_date: moment(record.start_date),
-								end_date: moment(record.end_date),
+								start_date: record.start_date && moment(record.start_date),
+								end_date: record.end_date && moment(record.end_date),
 							};
 							setInitialValues(detailRecord);
 							reset(detailRecord);
@@ -300,7 +306,7 @@ const ListOrder = (props) => {
 											name="start_date"
 											control={control}
 											label="Start Date"
-											disabled={true}
+											disabled={initialValues.status === "To Receive" ? true : false}
 											errormessage={errors.start_date?.message}
 										/>
 									</div>
@@ -309,7 +315,7 @@ const ListOrder = (props) => {
 											name="end_date"
 											control={control}
 											label="End Date"
-											disabled={true}
+											disabled={initialValues.status === "To Receive" ? true : false}
 											errormessage={errors.end_date?.message}
 										/>
 									</div>
