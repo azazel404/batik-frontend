@@ -10,6 +10,7 @@ import ProductAPI from "../../api/ProductAPI";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+
 import swal from "sweetalert";
 import moment from "moment";
 import { StatusOrder } from "../../helpers/statusOrder";
@@ -52,7 +53,7 @@ const ListOrder = (props) => {
 		let payload = {
 			start_date: values.start_date,
 			end_date: values.end_date,
-			status: 1,
+			status: values.status,
 			driver_id: values.driver_id,
 		};
 
@@ -320,11 +321,12 @@ const ListOrder = (props) => {
 										/>
 									</div>
 									<div style={{ marginBottom: "14px" }}>
-										<TextField
+										<SelectField
 											name="status"
 											control={control}
 											label="Status"
-											disabled={true}
+											options={StatusOrder}
+											disabled={initialValues.status === "To Pay" ? true : false}
 											errormessage={errors.status?.message}
 										/>
 									</div>
@@ -351,7 +353,7 @@ const ListOrder = (props) => {
 									paddingTop: "24px",
 								}}
 							>
-								{initialValues.status === "To Receive" ? (
+								{initialValues.status === "Arrived" ? (
 									<Button key="back" onClick={handleClose}>
 										Close
 									</Button>
