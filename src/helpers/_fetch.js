@@ -36,7 +36,8 @@ export const _fetch = async (
 
 		if (res.status >= 200 && res.status < 400) {
 			return res;
-		} else {
+		}
+		if (res.status === 401) {
 			localStorage.removeItem("token_login");
 			window.location.reload();
 		}

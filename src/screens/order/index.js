@@ -53,7 +53,8 @@ const ListOrder = (props) => {
 		let payload = {
 			start_date: values.start_date,
 			end_date: values.end_date,
-			status: values.status,
+			resi: values.resi,
+			status: 1,
 			driver_id: values.driver_id,
 		};
 
@@ -218,7 +219,7 @@ const ListOrder = (props) => {
 							setDetailId(record.id);
 							let detailRecord = {
 								...record,
-
+								statusId: record.status,
 								status: result && result.label,
 								trans_date: moment(record.trans_date),
 								start_date: record.start_date && moment(record.start_date),
@@ -236,6 +237,9 @@ const ListOrder = (props) => {
 			),
 		},
 	];
+
+	console.log("initialValyues", initialValues);
+
 	return (
 		<>
 			<Container>
@@ -326,12 +330,21 @@ const ListOrder = (props) => {
 											control={control}
 											label="Status"
 											options={StatusOrder}
-											disabled={initialValues.status === "To Pay" ? true : false}
+											disabled={initialValues.status === "To Receive" ? true : false}
 											errormessage={errors.status?.message}
 										/>
 									</div>
 								</Col>
 							</Row>
+							<div style={{ marginBottom: "14px" }}>
+								<TextField
+									name="resi"
+									control={control}
+									label={initialValues.status === "To Receive" ? "Resi" : "Input Resi"}
+									disabled={initialValues.status === "To Receive" ? true : false}
+									errormessage={errors.resi?.message}
+								/>
+							</div>
 							<div style={{ marginBottom: "14px" }}>
 								<SelectField
 									name="driver_id"
@@ -353,7 +366,7 @@ const ListOrder = (props) => {
 									paddingTop: "24px",
 								}}
 							>
-								{initialValues.status === "Arrived" ? (
+								{initialValues.status === "To Receive" ? (
 									<Button key="back" onClick={handleClose}>
 										Close
 									</Button>
