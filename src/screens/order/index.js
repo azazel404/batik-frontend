@@ -2,7 +2,7 @@ import React from "react";
 import { TextField, SelectField, InputPicker } from "../../components/Form";
 import Container from "../../components/container";
 import Toolbar from "../../components/Toolbar";
-import { Button, Modal, Table, Space, Row, Col } from "antd";
+import { Button, Modal, Table, Space, Row, Col, Image } from "antd";
 import OrderAPI from "../../api/OrderAPI";
 import DriverAPI from "../../api/DriverAPI";
 import UserAPI from "../../api/UserAPI";
@@ -336,6 +336,23 @@ const ListOrder = (props) => {
 									</div>
 								</Col>
 							</Row>
+							<div style={{ marginBottom: "14px" }}>
+								<div>Bukti Pembayaran :</div>
+								{initialValues.image ? (
+									<img
+										src={`${process.env.REACT_APP_URLFILE}${initialValues.image}`}
+										style={{
+											border: "1px solid #d9d9d9",
+											width: "300px",
+											height: "300px",
+										}}
+									/>
+								) : (
+									<div style={{ color: "red", fontWeight: "bold" }}>
+										Belum Melakukan Pembayaran
+									</div>
+								)}
+							</div>
 							<div style={{ marginBottom: "14px" }}>
 								<TextField
 									name="resi"
