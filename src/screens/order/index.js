@@ -76,6 +76,7 @@ const ListOrder = (props) => {
 		};
 		OrderAPI.cancelOrder(id, payload)
 			.then((res) => {
+				setIsModalVisible(false);
 				retrieveOrder();
 				swal("Message", "successfully rejected", "success");
 			})
@@ -389,7 +390,11 @@ const ListOrder = (props) => {
 									</Button>
 								) : (
 									<>
-										<Button key="back" type="danger" onClick={CancelOrder}>
+										<Button
+											key="back"
+											type="danger"
+											onClick={() => CancelOrder(initialValues.id)}
+										>
 											Reject Order
 										</Button>
 										<Button htmlType="submit" key="submit" type="primary">
